@@ -128,6 +128,7 @@ class @AnacondaUploadManager
       e.preventDefault()
 
     @form.find( '.anaconda_dropzone' ).on 'click', (e) ->
+      e.stopPropagation()
       $(this).find( 'input[name=file]' )[0].click()
 
     $(document).bind 'dragover', (e) ->
