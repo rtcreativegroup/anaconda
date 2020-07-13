@@ -87,7 +87,7 @@ module Anaconda
       output += <<-END
 <div id="#{upload_details_container_id}" class="anaconda_upload_details_container"></div>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function() {
     (function() {
       new AnacondaUploadField({
         element_id: "##{options[:element_id]}",
