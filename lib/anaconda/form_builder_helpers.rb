@@ -100,7 +100,7 @@ module Anaconda
         attribute: "#{options[:as]}"
       });
     }).call(this);
-    })
+  })
 </script>
 
       END
