@@ -7,10 +7,16 @@ module Anaconda
       options = {}
       
       # It would be safer if I could figure out how to make this sequential:
-      element_id = "anaconda_file_#{anaconda_field_name}_#{rand(999999999)}" 
-      
-      output += "<div class='not_anaconda_dropzone'>"
-      
+      element_id = "anaconda_file_#{anaconda_field_name}_#{rand(999999999)}"
+
+      if form_options[:enable_dropzone]
+        # Note, there is a known bug in dropzones that cause an issue in chrome to make file browser appear twice.
+        # Only use dropzones in lieu of "select file" button
+        output += "<div class='anaconda_dropzone'>"
+      else
+        output += "<div class='not_anaconda_dropzone'>"
+      end
+
       if form_options[:dropzone_text].present?
         output += "<div class='anaconda_dropzone_text'>#{form_options[:dropzone_text]}</div>"
       end
@@ -94,7 +100,7 @@ module Anaconda
         attribute: "#{options[:as]}"
       });
     }).call(this);
-    });
+  })
 </script>
 
       END
