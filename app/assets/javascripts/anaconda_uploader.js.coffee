@@ -96,9 +96,8 @@ class @AnacondaUploadManager
 
           setTimeout =>
             DLog 'Firing the remote submit call now'
-            # Rails.fire(elem, 'submit')
             elem.dispatchEvent(new Event('submit', {bubbles: true}));
-            
+
             # Rails.handleRemote.call(elem, evt)
           , 610
         else
@@ -163,6 +162,7 @@ class @AnacondaUploadField
     @upload_completed = false
     DLog "options:"
     DLog options
+    @upload_id = options.upload_id ? ""
     @element_id = options.element_id ? ""
     @allowed_types = options.allowed_types ? []
     DLog @allowed_types
@@ -226,7 +226,7 @@ class @AnacondaUploadField
     
     self = this
     $( @element_id ).fileupload
-      
+
       add: (e, data) ->
         DLog "file added"
         self.file_selected data
@@ -255,7 +255,7 @@ class @AnacondaUploadField
         DLog(data.textStatus )
         DLog("data.jqXHR:")
         DLog(data.jqXHR )
-        
+
       dropZone: $( @element_id ).parent(".anaconda_dropzone")
 
   bind_remove_button: ->
@@ -359,6 +359,7 @@ class @AnacondaUploadField
     DLog "#{@file.name} completed uploading"
     DLog @file
 
+    $( @element_id ).siblings( "input[data-anaconda-file-id]" ).val( @upload_id )
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-file-path]" ).val( @key.replace("${filename}", @file.name) )
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-filename]" ).val( @file.name )
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-size]" ).val( @file.size )
@@ -373,6 +374,7 @@ class @AnacondaUploadField
   remove_file: ->
     triggerEvent "anaconda:remove-file", { resource: "#{@hyphenated_resource}-#{@hyphenated_attribute}" }
     $("a[data-remove-#{@hyphenated_resource}-#{@hyphenated_attribute}]").hide()
+    $( @element_id ).siblings( "input[data-anaconda-file-id]" ).val( @upload_id )
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-file-path]" ).val("")
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-filename]" ).val("")
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-size]" ).val("")
