@@ -360,7 +360,6 @@ class @AnacondaUploadField
     DLog "#{@file.name} completed uploading"
     DLog @file
 
-    $( @element_id ).siblings( "input[data-anaconda-file-id]" ).val( @upload_id )
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-file-path]" ).val( @key.replace("${filename}", @file.name) )
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-filename]" ).val( @file.name )
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-size]" ).val( @file.size )
@@ -375,7 +374,6 @@ class @AnacondaUploadField
   remove_file: ->
     triggerEvent "anaconda:remove-file", { resource: "#{@hyphenated_resource}-#{@hyphenated_attribute}" }
     $("a[data-remove-#{@hyphenated_resource}-#{@hyphenated_attribute}]").hide()
-    $( @element_id ).siblings( "input[data-anaconda-file-id]" ).val( @upload_id )
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-file-path]" ).val("")
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-filename]" ).val("")
     $( @element_id ).siblings( "input[data-#{@hyphenated_resource}-#{@hyphenated_attribute}-size]" ).val("")

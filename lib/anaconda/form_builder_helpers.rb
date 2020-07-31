@@ -18,7 +18,7 @@ module Anaconda
         output += "<div class='not_anaconda_dropzone'>"
       end
 
-      output += "<input data-anaconda-file-id=\"true\" type=\"hidden\" name=\"anaconda_file_id\" id=\"#{upload_id}\">"
+      output += "<input type=\"hidden\" name=\"anaconda_file_id\" id=\"#{upload_id}\">"
 
       if form_options[:dropzone_text].present?
         output += "<div class='anaconda_dropzone_text'>#{form_options[:dropzone_text]}</div>"
