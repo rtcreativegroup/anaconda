@@ -96,9 +96,8 @@ class @AnacondaUploadManager
 
           setTimeout =>
             DLog 'Firing the remote submit call now'
-            # Rails.fire(elem, 'submit')
             elem.dispatchEvent(new Event('submit', {bubbles: true}));
-            
+
             # Rails.handleRemote.call(elem, evt)
           , 610
         else
@@ -164,6 +163,7 @@ class @AnacondaUploadField
     @upload_completed = false
     DLog "options:"
     DLog options
+    @upload_id = options.upload_id ? ""
     @element_id = options.element_id ? ""
     @allowed_types = options.allowed_types ? []
     DLog @allowed_types
@@ -227,7 +227,7 @@ class @AnacondaUploadField
     
     self = this
     $( @element_id ).fileupload
-      
+
       add: (e, data) ->
         DLog "file added"
         self.file_selected data
@@ -256,7 +256,7 @@ class @AnacondaUploadField
         DLog(data.textStatus )
         DLog("data.jqXHR:")
         DLog(data.jqXHR )
-        
+
       dropZone: $( @element_id ).parent(".anaconda_dropzone")
 
   bind_remove_button: ->
